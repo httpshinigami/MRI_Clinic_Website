@@ -9,10 +9,12 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FIT5032_Project.Models;
+using FIT5032_Project.CustomAttributes;
 
 namespace FIT5032_Project.Controllers
 {
     [Authorize]
+    [SecurityHeader]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

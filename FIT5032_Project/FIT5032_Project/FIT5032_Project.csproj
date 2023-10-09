@@ -176,6 +176,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="CustomAttributes\CustomHttpHeader.cs" />
     <Compile Include="CustomAttributes\MinimumAgeAttribute.cs" />
     <Compile Include="CustomAttributes\PasswordComplexityAttribute.cs" />
     <Compile Include="Global.asax.cs">

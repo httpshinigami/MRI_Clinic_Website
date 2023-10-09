@@ -7,11 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FIT5032_Project.Context;
+using FIT5032_Project.CustomAttributes;
 using FIT5032_Project.Models;
 
 namespace FIT5032_Project.Controllers
 {
     [Authorize]
+    [SecurityHeader]
     public class BookingController : Controller
     {
         private BookingContext db = new BookingContext();

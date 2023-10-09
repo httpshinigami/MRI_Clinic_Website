@@ -6,21 +6,26 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using FIT5032_Project.CustomAttributes;
 using FIT5032_Project.Models;
 
 namespace FIT5032_Project.Controllers
 {
+    [Authorize]
+    [SecurityHeader]
     public class LocationsController : Controller
     {
         private MapModels db = new MapModels();
 
         // GET: Locations
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Locations.ToList());
         }
 
         // GET: Locations/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)

@@ -58,11 +58,11 @@ namespace FIT5032_Project
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "98178015240-eqj5jrn0vs0o5levlp4ae0vp7mkscoft.apps.googleusercontent.com",
+                ClientSecret = "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"
+            });
         }
     }
 }
