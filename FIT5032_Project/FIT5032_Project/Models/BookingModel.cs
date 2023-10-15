@@ -10,9 +10,11 @@ namespace FIT5032_Project.Models
     {
         public int Id { get; set; }
 
-        [Required]
         [Display(Name = "Select a Doctor")]
-        public String DoctorName { get; set; }
+        public string DoctorId { get; set; }
+
+        public string DoctorName { get; set; }
+        public string Author { get; set; }
 
         [Required]
         [Display(Name = "Select a Date")]
@@ -22,5 +24,9 @@ namespace FIT5032_Project.Models
         [Required]
         [Display(Name = "Select a Time")]
         public TimeSpan BookingTime { get; set; }
+
+        public int Rating { get; set; }
+
+        public string Comment { get; set; }
     }
 }

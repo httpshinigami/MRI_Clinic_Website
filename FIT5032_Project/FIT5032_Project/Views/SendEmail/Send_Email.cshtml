@@ -6,7 +6,7 @@
 }
 
 
-@using (Html.BeginForm("Send_Email", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Send_Email", "SendEmail", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -63,9 +63,9 @@
     }
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to Home", "Index")
-</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

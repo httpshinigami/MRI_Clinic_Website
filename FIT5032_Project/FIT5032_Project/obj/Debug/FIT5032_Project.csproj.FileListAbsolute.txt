@@ -110,8 +110,10 @@ C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_P
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.csproj.GenerateResource.cache
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Adding_User_Attributes.resources
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_Location_Class.resources
-C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Adding_Booking_Attributes.resources
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\SendGrid.dll
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\StarkbankEcdsa.dll
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\SendGrid.pdb
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\SendGrid.xml
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_Booking.resources
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_Author.resources
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_RatingToBooking.resources

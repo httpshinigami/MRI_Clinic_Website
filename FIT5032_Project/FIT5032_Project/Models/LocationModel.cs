@@ -12,15 +12,17 @@ namespace FIT5032_Project.Models
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [Required]
-        public string Description { get; set; }
+        public String Description { get; set; }
 
+        [Required]
         [Column(TypeName = "numeric")]
         [DisplayFormat(DataFormatString = "{0:###.########}")]
         public decimal Latitude { get; set; }
 
+        [Required]
         [Column(TypeName = "numeric")]
         [DisplayFormat(DataFormatString = "{0:###.########}")]
         public decimal Longitude { get; set; }

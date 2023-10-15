@@ -13,15 +13,15 @@ namespace FIT5032_Project.Models
         [Display(Name = "Email address")]
         [Required(ErrorMessage = "Please enter an email address.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string ToEmail { get; set; }
+        public String ToEmail { get; set; }
 
         [Required(ErrorMessage = "Please enter a subject.")]
         [Display(Name = "Subject:")]
-        public string Subject { get; set; }
+        public String Subject { get; set; }
 
         [Required(ErrorMessage = "Please enter a message")]
         [Display(Name = "Contents:")]
-        public string Contents { get; set; }
+        public String Contents { get; set; }
 
         [Display(Name = "Attachment:")]
         public HttpPostedFileBase Attachment { get; set; }

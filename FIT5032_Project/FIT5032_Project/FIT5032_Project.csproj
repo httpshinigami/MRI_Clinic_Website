@@ -176,7 +176,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Context\BookingContext.cs" />
+    <Compile Include="Context\DatabaseContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -201,17 +201,27 @@
     <Compile Include="Migrations\202309190439071_Add_Location_Class.designer.cs">
       <DependentUpon>202309190439071_Add_Location_Class.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202310081356456_Adding_Booking_Attributes.cs" />
-    <Compile Include="Migrations\202310081356456_Adding_Booking_Attributes.designer.cs">
-      <DependentUpon>202310081356456_Adding_Booking_Attributes.cs</DependentUpon>
+    <Compile Include="Migrations\202310151820401_Add_Booking.cs" />
+    <Compile Include="Migrations\202310151820401_Add_Booking.designer.cs">
+      <DependentUpon>202310151820401_Add_Booking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310151916007_Add_Author.cs" />
+    <Compile Include="Migrations\202310151916007_Add_Author.designer.cs">
+      <DependentUpon>202310151916007_Add_Author.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310152051253_Add_RatingToBooking.cs" />
+    <Compile Include="Migrations\202310152051253_Add_RatingToBooking.designer.cs">
+      <DependentUpon>202310152051253_Add_RatingToBooking.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookingModel.cs" />
+    <Compile Include="Models\DoctorInfoModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MapModels.cs" />
+    <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\SendEmailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -670,8 +680,14 @@
     <EmbeddedResource Include="Migrations\202309190439071_Add_Location_Class.resx">
       <DependentUpon>202309190439071_Add_Location_Class.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202310081356456_Adding_Booking_Attributes.resx">
-      <DependentUpon>202310081356456_Adding_Booking_Attributes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202310151820401_Add_Booking.resx">
+      <DependentUpon>202310151820401_Add_Booking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310151916007_Add_Author.resx">
+      <DependentUpon>202310151916007_Add_Author.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310152051253_Add_RatingToBooking.resx">
+      <DependentUpon>202310152051253_Add_RatingToBooking.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

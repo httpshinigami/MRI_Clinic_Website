@@ -12,6 +12,7 @@ namespace FIT5032_Project.Models
         {
         }
 
+        public DbSet<BookingModel> Bookings { get; set; }
         public virtual DbSet<LocationModel> Locations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

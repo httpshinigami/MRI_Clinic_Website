@@ -35,6 +35,8 @@ namespace FIT5032_Project.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<LocationModel> Locations {get; set;}
+        public DbSet<LocationModel> Locations {get; set; }
+        public DbSet<BookingModel> Bookings { get; set; }
+        public DbSet<RatingModel> Ratings { get; set; }
     }
 }
