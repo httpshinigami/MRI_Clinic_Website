@@ -117,3 +117,5 @@ C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\SendGrid.xml
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_Booking.resources
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_Author.resources
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_RatingToBooking.resources
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Update_BookingModel.resources
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_ImageModel1.resources

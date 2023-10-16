@@ -38,5 +38,6 @@ namespace FIT5032_Project.Models
         public DbSet<LocationModel> Locations {get; set; }
         public DbSet<BookingModel> Bookings { get; set; }
         public DbSet<RatingModel> Ratings { get; set; }
+        public DbSet<ImageModel> Images { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace FIT5032_Project.Models
 
         [Required]
         [Display(Name = "Select a Time")]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}")]
         public TimeSpan BookingTime { get; set; }
 
         public int Rating { get; set; }

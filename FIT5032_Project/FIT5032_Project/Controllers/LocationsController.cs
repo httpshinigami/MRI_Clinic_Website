@@ -15,7 +15,7 @@ namespace FIT5032_Project.Controllers
     [SecurityHeader]
     public class LocationsController : Controller
     {
-        private MapModels db = new MapModels();
+        private DatabaseContext db = new DatabaseContext();
 
         // GET: Locations
         [AllowAnonymous]

@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageModelsController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SendEmailController.cs" />
@@ -213,10 +214,19 @@
     <Compile Include="Migrations\202310152051253_Add_RatingToBooking.designer.cs">
       <DependentUpon>202310152051253_Add_RatingToBooking.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310161619511_Update_BookingModel.cs" />
+    <Compile Include="Migrations\202310161619511_Update_BookingModel.designer.cs">
+      <DependentUpon>202310161619511_Update_BookingModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310161822133_Add_ImageModel1.cs" />
+    <Compile Include="Migrations\202310161822133_Add_ImageModel1.designer.cs">
+      <DependentUpon>202310161822133_Add_ImageModel1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookingModel.cs" />
     <Compile Include="Models\DoctorInfoModel.cs" />
+    <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -646,7 +656,7 @@
     <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Views\Booking\Create.cshtml" />
     <Content Include="Views\Booking\Delete.cshtml" />
-    <Content Include="Views\Booking\Details.cshtml" />
+    <Content Include="Views\Booking\Feedback.cshtml" />
     <Content Include="Views\Booking\Edit.cshtml" />
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -660,6 +670,11 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\SendEmail\Send_Email.cshtml" />
+    <Content Include="Views\ImageModels\Create.cshtml" />
+    <Content Include="Views\ImageModels\Delete.cshtml" />
+    <Content Include="Views\ImageModels\Details.cshtml" />
+    <Content Include="Views\ImageModels\Edit.cshtml" />
+    <Content Include="Views\ImageModels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -689,9 +704,17 @@
     <EmbeddedResource Include="Migrations\202310152051253_Add_RatingToBooking.resx">
       <DependentUpon>202310152051253_Add_RatingToBooking.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310161619511_Update_BookingModel.resx">
+      <DependentUpon>202310161619511_Update_BookingModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310161822133_Add_ImageModel1.resx">
+      <DependentUpon>202310161822133_Add_ImageModel1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Attachments\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

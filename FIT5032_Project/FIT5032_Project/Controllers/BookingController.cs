@@ -28,8 +28,8 @@ namespace FIT5032_Project.Controllers
             return View(db.Bookings.Where(m => m.Author == currentUserId).ToList());
         }
 
-        // GET: Booking/Details/5
-        public ActionResult Details(int? id)
+        // GET: Booking/Feedback/5
+        public ActionResult Feedback(int? id)
         {
             if (id == null)
             {
@@ -42,12 +42,12 @@ namespace FIT5032_Project.Controllers
             }
             return View(bookingModel);
         }
-        // POST: Booking/Details/6
+        // POST: Booking/Feedback/6
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Details(int? id, int? Rating, string comment)
+        public ActionResult Feedback(int? id, int? Rating, string comment)
         {
             if (id == null)
             {
@@ -85,7 +85,7 @@ namespace FIT5032_Project.Controllers
             {
                 connection.Open();
 
-                string query = "SELECT FirstName + ' ' + LastName AS DoctorName FROM AspNetUserRoles " +
+                string query = "SELECT nur.UserId, FirstName + ' ' + LastName AS DoctorName FROM AspNetUserRoles " +
                     "nur JOIN AspNetUsers nu ON nur.UserId = nu.Id WHERE nur.RoleId = '1e06f578-828b-4fd1-b6c6-0fb928513ca0';";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -94,6 +94,7 @@ namespace FIT5032_Project.Controllers
                     {
                         while (reader.Read())
                         {
+                            string doctorId = reader["DoctorId"].ToString();
                             string doctorName = reader["DoctorName"].ToString();
                             doctorNames.Add(doctorName);
                         }
@@ -108,7 +109,7 @@ namespace FIT5032_Project.Controllers
         public ActionResult Create()
         {
 
-            List<string> doctorNames = GetDoctorNames(); // Replace this with your actual data retrieval logic
+            List<string> doctorNames = GetDoctorNames();
             ViewBag.DoctorNames = doctorNames;
 
             string currentUserId = User.Identity.GetUserId();

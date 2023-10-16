@@ -14,5 +14,8 @@ namespace FIT5032_Project.Models
             // Constructor: Configure the database connection (replace "YourConnectionString" with your connection string name)
         }
         public DbSet <BookingModel>  Bookings { get; set; }
+        public DbSet<LocationModel> Locations { get; set; }
+
+        public System.Data.Entity.DbSet<FIT5032_Project.Models.ImageModel> ImageModels { get; set; }
     }
 }
