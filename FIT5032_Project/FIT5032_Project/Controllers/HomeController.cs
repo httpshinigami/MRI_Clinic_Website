@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using FIT5032_Project.Models;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
+using System.Web.Security;
 
 namespace FIT5032_Project.Controllers
 {
@@ -32,8 +34,8 @@ namespace FIT5032_Project.Controllers
             //return View(db.Articles.ToList());
             //return View(db.ImageModels.Where(m => m.Author == currentUserId).ToList());
 
-            List<string> doctorNames = GetDoctorNames();
-            ViewBag.DoctorNames = doctorNames;
+            List<DoctorInfoModel> doctorNames = GetDoctorInfo();
+            ViewBag.DoctorInfo = doctorNames;
 
             string currentUserId = User.Identity.GetUserId();
             ViewBag.Author = currentUserId;
@@ -41,19 +43,18 @@ namespace FIT5032_Project.Controllers
 
         }
 
-        public List<string> GetDoctorNames()
+        public List<DoctorInfoModel> GetDoctorInfo()
         {
-            List<string> doctorNames = new List<string>();
+            List<DoctorInfoModel> doctors = new List<DoctorInfoModel>();
 
-            string connectionStringName = "DefaultConnection"; // Specify the desired connection string name
+            string connectionStringName = "DefaultConnection";
             string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                string query = "SELECT FirstName + ' ' + LastName AS DoctorName FROM AspNetUserRoles " +
-                    "nur JOIN AspNetUsers nu ON nur.UserId = nu.Id WHERE nur.RoleId = '1e06f578-828b-4fd1-b6c6-0fb928513ca0';";
+                string query = "SELECT nur.UserId as DoctorId, FirstName + ' ' + LastName AS DoctorName, ROUND(AVG(CAST(Rating AS FLOAT)), 2) as AggRating FROM AspNetUserRoles nur JOIN AspNetUsers nu ON nur.UserId = nu.Id JOIN BookingModels b ON nu.Id = b.DoctorId WHERE nur.RoleId = '1e06f578-828b-4fd1-b6c6-0fb928513ca0' AND Rating > 0 GROUP BY nur.UserId, FirstName + ' ' + LastName; ";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -61,14 +62,19 @@ namespace FIT5032_Project.Controllers
                     {
                         while (reader.Read())
                         {
-                            string doctorName = reader["DoctorName"].ToString();
-                            doctorNames.Add(doctorName);
+                            doctors.Add(new DoctorInfoModel
+                            {
+                                DoctorId = reader["DoctorId"].ToString(),
+                                Name = reader["DoctorName"].ToString(),
+                                Rating = reader["AggRating"].ToString()
+                            });
+
                         }
                     }
                 }
             }
 
-            return doctorNames;
+            return doctors;
         }
 
         public ActionResult Contact()

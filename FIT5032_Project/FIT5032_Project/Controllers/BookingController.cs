@@ -74,9 +74,9 @@ namespace FIT5032_Project.Controllers
         }
 
 
-        public List<string> GetDoctorNames()
+        public List<DoctorInfoModel> GetDoctorNames()
         {
-            List<string> doctorNames = new List<string>();
+            List<DoctorInfoModel> doctors = new List<DoctorInfoModel>();
 
             string connectionStringName = "DefaultConnection"; // Specify the desired connection string name
             string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
@@ -85,7 +85,7 @@ namespace FIT5032_Project.Controllers
             {
                 connection.Open();
 
-                string query = "SELECT nur.UserId, FirstName + ' ' + LastName AS DoctorName FROM AspNetUserRoles " +
+                string query = "SELECT nur.UserId as DoctorId, FirstName + ' ' + LastName AS DoctorName FROM AspNetUserRoles " +
                     "nur JOIN AspNetUsers nu ON nur.UserId = nu.Id WHERE nur.RoleId = '1e06f578-828b-4fd1-b6c6-0fb928513ca0';";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -94,29 +94,30 @@ namespace FIT5032_Project.Controllers
                     {
                         while (reader.Read())
                         {
-                            string doctorId = reader["DoctorId"].ToString();
-                            string doctorName = reader["DoctorName"].ToString();
-                            doctorNames.Add(doctorName);
+                            doctors.Add(new DoctorInfoModel
+                            {
+                                DoctorId = reader["DoctorId"].ToString(),
+                                Name = reader["DoctorName"].ToString()
+                            });
+
                         }
                     }
                 }
             }
 
-            return doctorNames;
+            return doctors;
         }
 
         // GET: Booking/Create
         public ActionResult Create()
         {
 
-            List<string> doctorNames = GetDoctorNames();
-            ViewBag.DoctorNames = doctorNames;
+            List<DoctorInfoModel> doctorNames = GetDoctorNames();
+            ViewBag.DoctorList = new SelectList(doctorNames, "DoctorId", "Name");
 
             string currentUserId = User.Identity.GetUserId();
             ViewBag.Author = currentUserId;
             return View();
-
-            //ViewBag.DoctorList = new SelectList(doctors, "DoctorId", "Name");
 
         }
 

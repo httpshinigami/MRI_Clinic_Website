@@ -28,8 +28,9 @@
 
 
     <div class="form-group">
-        @Html.Label("Select a Doctor:", new { @class = "control-label" })
-        @Html.DropDownList("DoctorName", new SelectList(ViewBag.DoctorNames), "Select a Doctor", new { @class = "form-control" })
+        @Html.LabelFor(model => model.DoctorId, "Select a Doctor:", new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.DoctorId, (SelectList)ViewBag.DoctorList, "Select a Doctor", new { @class = "form-control", id = "Dropdown" })
+        @Html.HiddenFor(model => model.DoctorName, new { id = "DoctorName" })
     </div>
 
     <br />
@@ -71,7 +72,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    @*<script>
+    <script>
             $(document).ready(function () {
                 $('#Dropdown').change(function () {
                     var selectedId = $(this).val();
@@ -79,6 +80,6 @@
                     $('#DoctorName').val(selectedName);
                 });
             });
-        </script>*@
+        </script>
 
 }
