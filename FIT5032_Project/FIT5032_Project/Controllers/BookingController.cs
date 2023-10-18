@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -207,5 +208,128 @@ namespace FIT5032_Project.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // GET: Booking/Calendar
+        public ActionResult Calendar(string DoctorId)
+        {
+            // Retrieve all bookings from a DoctorId & put it in a list called DoctorBookings
+            List<BookingModel> DoctorBookings = db.Bookings.Where(m => m.DoctorId == DoctorId).ToList();
+
+            // 
+            string currentUserId = User.Identity.GetUserId();
+            ViewBag.Author = currentUserId;
+            ViewBag.Doctor = DoctorId;
+            return View(DoctorBookings);
+
+        }
+
+        // POST: Booking/Calendar
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Calendar(BookingModel bookingModel)
+        {
+            bookingModel.Author = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                db.Bookings.Add(bookingModel);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(bookingModel);
+        }
+
+
+
+        // GET: Booking/Gagan
+        public ActionResult Gagan(String date, string DoctorId)
+        {
+            if (null == date)
+            {
+                return RedirectToAction("Index");
+            }
+
+            //BookingModel Appointment = new BookingModel();
+            //DateTime convertedDate = DateTime.Parse(date);
+            //Appointment.BookingDate = convertedDate;
+
+            //string query = "Select FORMAT(bookingTime, 'hh: mm') from BookingModels where DoctorId = " + DoctorId;
+            ////Retrieve the booked times from data source
+            //List<DateTime> bookedTimes = db.Bookings.Where(m => m.DoctorId == DoctorId).ToList();
+
+            DateTime convertedDate = DateTime.Parse(date);
+
+            // Assuming db is  DbContext instance for Entity Framework
+            List<BookingModel> bookedTimes = db.Bookings
+                .Where(m => m.DoctorId == DoctorId && m.BookingDate == convertedDate)
+                //.Select(m => m.BookingTime)
+                .ToList();
+            
+            return View(bookedTimes);
+        }
+
+
+        // POST: Booking/Gagan
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Gagan(BookingModel bookingModel)
+        {
+            bookingModel.Author = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                db.Bookings.Add(bookingModel);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(bookingModel);
+        }
+
+        // ActionResult: Get Booked Appointments
+        //public ActionResult Appointments()
+        //{
+        //    // Retrieve the booked times from data source
+        //    List<DateTime> bookedTimes = db.Bookings.Where(m => m.DoctorId == DoctorId).ToList();
+
+        //    // Calculate the available times, e.g., a list of DateTime objects.
+        //    List<DateTime> availableTimes = CalculateAvailableTimes(bookedTimes);
+
+        //    return View(availableTimes);
+        //}
+
+        public List<DoctorInfoModel> GetDoctorAppointments()
+        {
+            List<DoctorInfoModel> doctors = new List<DoctorInfoModel>();
+
+            string connectionStringName = "DefaultConnection"; // Specify the desired connection string name
+            string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT nur.UserId as DoctorId, FirstName + ' ' + LastName AS DoctorName FROM AspNetUserRoles " +
+                    "nur JOIN AspNetUsers nu ON nur.UserId = nu.Id WHERE nur.RoleId = '1e06f578-828b-4fd1-b6c6-0fb928513ca0';";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            doctors.Add(new DoctorInfoModel
+                            {
+                                DoctorId = reader["DoctorId"].ToString(),
+                                Name = reader["DoctorName"].ToString()
+                            });
+
+                        }
+                    }
+                }
+            }
+
+            return doctors;
+        }
+
     }
 }

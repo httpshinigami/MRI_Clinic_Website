@@ -120,3 +120,4 @@ C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_P
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Update_BookingModel.resources
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_ImageModel1.resources
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Add_DoctorInfoModel.resources
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\obj\Debug\FIT5032_Project.Migrations.Removed_RatingModel.resources

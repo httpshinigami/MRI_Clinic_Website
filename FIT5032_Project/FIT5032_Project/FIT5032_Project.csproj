@@ -226,6 +226,10 @@
     <Compile Include="Migrations\202310161928560_Add_DoctorInfoModel.designer.cs">
       <DependentUpon>202310161928560_Add_DoctorInfoModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310181758004_Removed_RatingModel.cs" />
+    <Compile Include="Migrations\202310181758004_Removed_RatingModel.designer.cs">
+      <DependentUpon>202310181758004_Removed_RatingModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookingModel.cs" />
@@ -235,7 +239,6 @@
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MapModels.cs" />
-    <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\SendEmailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -547,6 +550,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\location.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -679,6 +683,8 @@
     <Content Include="Views\ImageModels\Details.cshtml" />
     <Content Include="Views\ImageModels\Edit.cshtml" />
     <Content Include="Views\ImageModels\Index.cshtml" />
+    <Content Include="Views\Booking\Calendar.cshtml" />
+    <Content Include="Views\Booking\Gagan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -716,6 +722,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310161928560_Add_DoctorInfoModel.resx">
       <DependentUpon>202310161928560_Add_DoctorInfoModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310181758004_Removed_RatingModel.resx">
+      <DependentUpon>202310181758004_Removed_RatingModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
