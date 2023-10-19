@@ -3,117 +3,58 @@
 @{
     ViewBag.Title = "Gagan";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    if (ViewBag.DoctorNames == null)
-    {
-        ViewBag.DoctorNames = new List<string>();
-    }
-
-    TimeSpan currentTime = new TimeSpan(10, 0, 0); // 10:00 AM
-    TimeSpan endTime = new TimeSpan(18, 0, 0);    // 6:00 PM
-    TimeSpan interval = new TimeSpan(1, 0, 0);     // 1 hour interval
-    var firstBooking = Model.FirstOrDefault();
-
-
-
-
 }
 
 <h2>Select a Time</h2>
 
-@using (Html.BeginForm("Create", "Booking", FormMethod.Post))
+@using (Html.BeginForm("Gagan", "Booking", FormMethod.Post))
 {
     @Html.AntiForgeryToken();
 
-    if (firstBooking != null)
-    {
-        <h>Doctor Name of the First Booking: @firstBooking.DoctorName</h>
-    }
-
     <br />
-
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.BookingTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.BookingTime, new { @class = "form-control", @type = "time" })
-                @Html.ValidationMessageFor(model => model.BookingTime, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-    <br />
-
-    @*
-        <table>
-            <tr>
-                <th>Time</th>
-                <th>Action</th>
-            </tr>
-            @foreach (var booking in Model)
-            {
-                <tr>
-                    <td>@booking.BookingTime.ToString()</td> <!-- Display the time -->
-                    <td>
-                        <!-- Add a button or link to book an appointment at this time -->
-                        @Html.ActionLink("Book Appointment", "Book", new { appointmentTime = @booking.BookingTime })
-                    </td>
-                </tr>
-            }
-        </table>
-    *@
+    <input type="hidden" name="DoctorId" value="@ViewBag.DoctorId" />
+    <input type="hidden" name="DoctorName" value="@ViewBag.userName" />
+    <input type="hidden" name="BookingDate" value="@ViewBag.date" />
+    @ViewBag.date
 
     <table class="table">
         <tr>
             <th>Time</th>
             <th>Availability</th>
         </tr>
-        @while (currentTime < endTime)
+        @for (var currentTime = TimeSpan.FromHours(9); currentTime < TimeSpan.FromHours(18); currentTime = currentTime.Add(TimeSpan.FromHours(1)))
         {
             <tr>
-                <td>@currentTime.ToString(@"hh\:mm")</td>
                 <td>
-                    @if (Model.Any(booking => booking.BookingTime == currentTime))
+                    <label>
+                        @Html.RadioButton("BookingTime", currentTime, IsAvailable(currentTime), new { @class = "radio-button" })
+                        @currentTime.ToString(@"hh\:mm")
+                    </label>
+                </td>
+                <td>
+                    @if (!IsAvailable(currentTime))
                     {
-                        <span style="color: red;">Booked</span>
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Book Appointment", "Book", new { appointmentTime = currentTime.ToString() })
+                        <span style="color: red;">Time Unavailable</span>
                     }
                 </td>
             </tr>
-            currentTime = currentTime.Add(interval); // Move to the next hour
         }
     </table>
-
-
     <br />
+
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create Booking" class="btn btn-primary" />
-        </div>
+        <button type="submit" class="btn btn-primary">Book Now</button>
     </div>
-
-    <br />
-    <br />
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-
-    <script>
-        $(document).ready(function () {
-            $('#Dropdown').change(function () {
-                var selectedId = $(this).val();
-                var selectedName = $('#Dropdown option:selected').text();
-                $('#DoctorName').val(selectedName);
-            });
-        });
-    </script>
-
+@functions {
+    bool IsAvailable(TimeSpan time)
+    {
+        // Check if the given time is in the list of taken bookings
+        return !Model.Any(booking => booking.BookingTime == time);
+    }
 }
-
-

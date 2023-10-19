@@ -1,4 +1,4 @@
-﻿@model FIT5032_Project.Models.DoctorInfoModel
+﻿
 
 @{
     ViewBag.Title = "About";
@@ -8,52 +8,5 @@
 <main aria-labelledby="title">
     <h2>About Us</h2>
     <h3>Our Doctors</h3>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Doctor</th>
-                <th>Rating</th>
-                <th> </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var doctor in ViewBag.DoctorInfo)
-            {
-                <tr>
-                    @*<td>
-            <img class="img-thumbnail" src="@Url.Content("~/Uploads/" + @doctor.Path)" />
-        </td>*@
-                    <td>@doctor.Name</td>
-                    <td>@doctor.Rating / 5</td>
-
-                    @if (User.IsInRole("Patient"))
-                    {
-                        <td>
-                            <button class="btn btn-primary">
-                                @Html.ActionLink(
-                                                    "Book an Appointment",              // linkText
-                                                    "Calendar",                          // actionName
-                                                    "Booking",                           // controllerName
-                                                    new
-                                                    {                                    // routeValues
-                                                        doctorId = doctor.DoctorId
-                                                    },
-                                                    null                                 // htmlAttributes
-                                                    )
-                                                    </button>
-                        </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <style>
-        .btn a {
-            color: white;
-            text-decoration: none;
-        }
-    </style>
 
 </main>
