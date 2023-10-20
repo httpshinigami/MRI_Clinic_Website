@@ -295,29 +295,35 @@ namespace FIT5032_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Gagan(BookingModel Model)
         {
+            List<BookingModel> bookedTimes = db.Bookings
+                            .Where(m => m.DoctorId == Model.DoctorId && m.BookingDate == Model.BookingDate)
+                            .ToList();
+            bool isTimeSlotAvailable = !bookedTimes.Any(booking => booking.BookingTime == Model.BookingTime);
+
             if (ModelState.IsValid)
             {
                 // Model state is valid, proceed with booking
-                var booking = new BookingModel
+                if ((Model.BookingDate > DateTime.Now.Date)             // If Booking is not today or a past date
+                    && (Model.BookingTime > TimeSpan.FromHours(9))      // If Booking is after 9am
+                    && (Model.BookingTime < TimeSpan.FromHours(18))     // If Booking is before 6pm
+                    && isTimeSlotAvailable)                             // If Booking is available 
                 {
-                    DoctorId = Model.DoctorId,
-                    DoctorName = Model.DoctorName,
-                    BookingDate = Model.BookingDate,
-                    BookingTime = Model.BookingTime,
-                    Author = User.Identity.GetUserId()
-                };
+                    var booking = new BookingModel
+                    {
+                        DoctorId = Model.DoctorId,
+                        DoctorName = Model.DoctorName,
+                        BookingDate = Model.BookingDate,
+                        BookingTime = Model.BookingTime,
+                        Author = User.Identity.GetUserId()
+                    };              
 
                 db.Bookings.Add(booking);
                 db.SaveChanges();
-
+                }
                 return RedirectToAction("Index");
             }
             else
             {
-                // Model state is not valid, return to the form with validation errors
-                List<BookingModel> bookedTimes = db.Bookings
-                    .Where(m => m.DoctorId == Model.DoctorId && m.BookingDate == Model.BookingDate)
-                    .ToList();
                 return View(bookedTimes);
             }
         }

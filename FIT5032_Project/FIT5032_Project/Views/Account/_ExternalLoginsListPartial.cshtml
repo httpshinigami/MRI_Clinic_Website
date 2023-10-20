@@ -1,11 +1,12 @@
 ﻿@model FIT5032_Project.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <h4>Use another service to log in.</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (loginProviders.Count() == 0) {
+    if (loginProviders.Count() == 0)
+    {
         <div>
             <p>
                 There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
@@ -13,14 +14,82 @@
             </p>
         </div>
     }
-    else {
-        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { role = "form" })) {
+    else
+    {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+        {
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-outline-dark" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
+
+                        string iconClass = "";
+                        string iconContainer = "";
+
+                        switch (p.AuthenticationType)
+                        {
+                            case "Facebook":
+                                iconClass = "fa-facebook";
+                                iconContainer = "cont-fb";
+                                break;
+                            case "Google":
+                                iconClass = "fa-google";
+                                iconContainer = "cont-go";
+                                break;
+                            // Add more cases for other authentication types as needed
+                            default:
+                                // You can provide a default icon class or handle other cases here
+                                break;
+                        }
+
+                        @*<a href="#" class="fa @iconClass"></a>
+                            <button type="submit" class="btn btn-outline-dark" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                        *@
+                        <button type="submit" class="social-btn" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">
+                            <div class=" circ @iconContainer">
+                                <span class="fa @iconClass"></span>
+                            </div>
+                        </button>
                     }
+                    <style>
+                        .social-btn {
+                            border:none;
+                            background:none;
+                        }
+                        .circ {
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 50rem;
+                            display: grid;
+                        }
+                        .cont-fb {
+                            background-color: #3B5998;
+                        }
+
+                        .cont-go {
+                            background-color: white;
+                        }
+
+                        .fa {
+                            font-size: 30px;
+                            text-decoration: none;
+                            margin: auto;
+                        }
+
+                        .fa-facebook {
+                            /*background: #3B5998;*/
+                            color: white;
+                        }
+
+                        .fa-google {
+                            background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+                            -webkit-background-clip: text;
+                            background-clip: text;
+                            color: transparent;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    </style>
                 </p>
             </div>
         }

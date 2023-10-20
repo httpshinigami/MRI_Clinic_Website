@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Select a Time</h2>
+<h2>Select a Time for @ViewBag.date.ToString("dd MMM yyyy")</h2>
 
 @using (Html.BeginForm("Gagan", "Booking", FormMethod.Post))
 {
@@ -15,7 +15,6 @@
     <input type="hidden" name="DoctorId" value="@ViewBag.DoctorId" />
     <input type="hidden" name="DoctorName" value="@ViewBag.userName" />
     <input type="hidden" name="BookingDate" value="@ViewBag.date" />
-    @ViewBag.date
 
     <table class="table">
         <tr>
@@ -25,30 +24,43 @@
         @for (var currentTime = TimeSpan.FromHours(9); currentTime < TimeSpan.FromHours(18); currentTime = currentTime.Add(TimeSpan.FromHours(1)))
         {
             <tr>
-                <td>
-                    <label>
-                        @Html.RadioButton("BookingTime", currentTime, IsAvailable(currentTime), new { @class = "radio-button" })
-                        @currentTime.ToString(@"hh\:mm")
-                    </label>
-                </td>
-                <td>
-                    @if (!IsAvailable(currentTime))
-                    {
+                @if (!IsAvailable(currentTime))
+                {
+                    <td>
+                        <label>
+                            @*@Html.RadioButton("BookingTime", currentTime, IsAvailable(currentTime), new { @class = "radio-button" })*@
+                            <span style="color: red;">x</span> @currentTime.ToString(@"hh\:mm")
+                        </label>
+                    </td>
+                    <td>
                         <span style="color: red;">Time Unavailable</span>
-                    }
-                </td>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <label>
+                            @Html.RadioButton("BookingTime", currentTime, IsAvailable(currentTime), new { @class = "radio-button" })
+                            @currentTime.ToString(@"hh\:mm")
+                        </label>
+                    </td>
+                    <td>
+
+                    </td>
+                }
             </tr>
         }
     </table>
     <br />
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Book Now</button>
+        <button type="submit" class="btn btn-babi">Book Now</button>
     </div>
 }
+<br />
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Calendar", "Index")
 </div>
 
 @functions {

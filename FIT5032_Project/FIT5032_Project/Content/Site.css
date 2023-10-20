@@ -19,26 +19,23 @@ textarea {
     max-width: 280px;
 }
 
+/*---------------------------------------------------------------------------------------*/
+
 .nav-link {
-    color: rgba(50,50,50);
+    color: #CC5EA3;
 }
 
 body {
-    /*background-color: rgb(177, 149, 189);*/
+    background-color: #101010;
     color: ghostwhite;
 }
 
     body a {
-        /*background-color: rgb(177, 149, 189);*/
-        color: ghostwhite;
+        color: #CC5EA3;
     }
 
 .navbar {
-    background: rgb(253,220,255);
-    background: -moz-linear-gradient(90deg, rgba(253,220,255,1) 0%, rgba(251,168,255,1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(253,220,255,1) 0%, rgba(251,168,255,1) 100%);
-    background: linear-gradient(90deg, rgba(253,220,255,1) 0%, rgba(251,168,255,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fddcff",endColorstr="#fba8ff",GradientType=1);
+    background: black;
 }
 
 .navbar-brand {
@@ -60,3 +57,8 @@ body {
         background-color: lightpink;
         color: floralwhite;
     }
+
+/*.bg-pinkglow {
+    background: url("../Utils/bg.png");
+    background-color: #252526;
+}*/
