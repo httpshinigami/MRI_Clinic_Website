@@ -28,8 +28,11 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Doctors", "Doctors", "Booking", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Your Bookings", "Index", "Booking", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Our Doctors", "Doctors", "Booking", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Your Bookings", "Index", "Booking", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Location", "Index", "Locations", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
