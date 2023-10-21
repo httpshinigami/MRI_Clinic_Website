@@ -37,13 +37,15 @@ for (i = 0; i < locations.length; i++) {
     };
     data.push(feature)
 }
-mapboxgl.accessToken = TOKEN;
+var defaultDestination = [locations[0].longitude, locations[0].latitude];
+mapboxgl.accessToken = 'pk.eyJ1IjoibWNoZTAwMTIiLCJhIjoiY2xtcDJ2cWtnMHR1MjJscWd1ZWUyaTg3eiJ9.VgZgBEvgvzsxJKwmrw5bRg'
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v10',
     zoom: 11,
     center: [locations[0].longitude, locations[0].latitude]
 });
+
 map.on('load', function () {
     // Add a layer showing the places.
     map.addLayer({
@@ -61,9 +63,23 @@ map.on('load', function () {
             "icon-allow-overlap": true
         }
     });
-    map.addControl(new MapboxGeocoder({
+    var directions = new MapboxDirections({
         accessToken: mapboxgl.accessToken
-    }));;
+    });
+    map.addControl(directions, 'top-left');
+    directions.setDestination('Monash University Clayton Campus, Wellington Rd, Melbourne, Victoria 3168, Australia');
+    //directions.setOrigin('Ronald McDonald House, Melbourne, Victoria 3168, Australia');
+
+    //map.addControl(
+    //    new MapboxDirections({
+    //        accessToken: mapboxgl.accessToken,
+    //        destination: [locations[0].longitude, locations[0].latitude]
+    //    }),
+    //    'top-left',
+    //);
+
+    //map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken }));;
+
     map.addControl(new mapboxgl.NavigationControl());
     // When a click event occurs on a feature in the places layer, open a popup at the
     // location of the feature, with description HTML from its properties.
@@ -90,3 +106,39 @@ map.on('load', function () {
         map.getCanvas().style.cursor = '';
     });
 });
+
+
+// Function to show the r
+function showRoute() {
+    var userAddress = document.getElementById('userAddress').value;
+    mapboxgl.accessToken = TOKEN;
+
+    var geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+    });
+
+    geocoder.query(userAddress, function (error, result) {
+        if (error || !result || !result.features || result.features.length === 0) {
+            alert('Address not found. Please check your input.');
+            return;
+        }
+
+        var userLocation = result.features[0].center;
+        // Replace these coordinates with your clinic's coordinates
+        var clinicCoordinates = [YOUR_CLINIC_LONGITUDE, YOUR_CLINIC_LATITUDE];
+
+        // Use Mapbox Directions API to get the route
+        var directions = new MapboxDirections({
+            accessToken: mapboxgl.accessToken,
+        });
+
+        directions.setOrigin(userLocation);
+        directions.setDestination(clinicCoordinates);
+
+        map.addControl(directions, 'top-left');
+    });
+}
+
+// Attach the showRoute function to the button click event
+//document.getElementById('showRouteButton').addEventListener('click', showRoute);

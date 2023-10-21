@@ -39,7 +39,7 @@ body {
 }
 
 .navbar-brand {
-    color: rgba(50,50,50);
+    color: white;
     font-weight: 500;
 }
 
@@ -58,7 +58,20 @@ body {
         color: floralwhite;
     }
 
-/*.bg-pinkglow {
-    background: url("../Utils/bg.png");
-    background-color: #252526;
-}*/
+.space {
+    margin: 70px 0 70px 0;
+}
+
+.front-content {
+    display: grid;
+}
+
+    .front-content div {
+        margin: auto;
+    }
+.about {
+    margin:auto;
+    width:80%;
+    text-align:center;
+    margin-bottom:2rem;
+}

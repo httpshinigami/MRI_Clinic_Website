@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <h2>Bookings</h2>
 
 <p>
@@ -68,9 +69,9 @@
     @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
     @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
     <script>
- $(document).ready(function () {
- $('.table').DataTable();
- });
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
     </script>
 }
 <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"

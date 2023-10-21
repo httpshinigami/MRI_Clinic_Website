@@ -240,8 +240,8 @@ namespace FIT5032_Project.Controllers
         }
 
 
-        // GET: Booking/Gagan
-        public ActionResult Gagan(String date, string DoctorId)
+        // GET: Booking/Book
+        public ActionResult Book(String date, string DoctorId)
         {
             if (null == date)
             {
@@ -290,10 +290,10 @@ namespace FIT5032_Project.Controllers
             return View(bookedTimes);
         }
 
-        //HTTP GET Booking/Gagan
+        //HTTP GET Booking/Book
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Gagan(BookingModel Model)
+        public ActionResult Book(BookingModel Model)
         {
             List<BookingModel> bookedTimes = db.Bookings
                             .Where(m => m.DoctorId == Model.DoctorId && m.BookingDate == Model.BookingDate)

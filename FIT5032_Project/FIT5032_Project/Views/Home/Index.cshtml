@@ -2,30 +2,19 @@
     ViewBag.Title = "Home Page";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">Sakura MRI</h1>
-        <p class="lead">Da babi so eeby slebi</p>
-        <p><a href="https://gifdb.com/images/high/sleepy-cat-bread-sandwich-tk69xfb5482tgpat.gif" class="btn btn-danger btn-md">click to see babi eepin &raquo;</a></p>
-    </section>
-
+<main class="space">
     <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                Gagan
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <section class="col-8" aria-labelledby="banner">
+            <img src="https://i.imgur.com/tNwnKmh.png" style="max-width: 100%; height: auto;" />
         </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+        <section class="col front-content" aria-labelledby="librariesTitle">
+            <div>
+                <h2 id="librariesTitle">Quality & Care</h2>
+                <p>At our clinic, we are honored to have a dedicated team of highly qualified doctors with extensive experience. Their commitment to excellence and continuous learning ensures that our patients receive the highest standard of care.</p>
+                </br>
+                @Html.ActionLink("See Our Doctors", "Doctors", "Booking", new { area = "" }, new { @class="btn btn-babi" })
+            </div>
         </section>
     </div>
 </main>

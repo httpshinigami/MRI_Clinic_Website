@@ -71,7 +71,7 @@
                     else {
                         var m = moment(d).format("YYYY-MM-DD");
                         m = encodeURIComponent(m);
-                        var uri = "/Booking/Gagan?date=" + m + "&DoctorId=" + param;
+                        var uri = "/Booking/Book?date=" + m + "&DoctorId=" + param;
                         $(location).attr('href', uri);
                     }
                 }

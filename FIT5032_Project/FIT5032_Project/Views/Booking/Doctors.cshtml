@@ -11,18 +11,23 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Doctor</th>
-                <th>Rating</th>
-                <th> </th>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Rating)</th>
+
+                @if (User.IsInRole("Patient"))
+                {
+                    <th>Booking</th>
+                }
             </tr>
         </thead>
         <tbody>
+                
             @foreach (var doctor in ViewBag.DoctorInfo)
             {
                 <tr>
                     @*<td>
-            <img class="img-thumbnail" src="@Url.Content("~/Uploads/" + @doctor.Path)" />
-        </td>*@
+                            <img class="img-thumbnail" src="@Url.Content("~/Uploads/" + @doctor.Path)" />
+                        </td>*@
                     <td>@doctor.Name</td>
                     <td>@doctor.Rating / 5</td>
 
@@ -33,11 +38,25 @@
 
                         </td>
                     }
-                    <th> </th>
                 </tr>
             }
+               
         </tbody>
     </table>
+
+
+    @section Scripts {
+
+        @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+        @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+        <script>
+            $(document).ready(function () {
+                $('.table').DataTable();
+            });
+        </script>
+    }
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
+          rel="stylesheet" />
 
     <style>
         .btn a {
@@ -47,3 +66,4 @@
     </style>
 
 </main>
+

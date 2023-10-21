@@ -12,8 +12,8 @@ namespace FIT5032_Project.Models
     {
         [Display(Name = "Email address")]
         [Required(ErrorMessage = "Please enter an email address.")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public String ToEmail { get; set; }
+        //[EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public List<String> ToEmail { get; set; }
 
         [Required(ErrorMessage = "Please enter a subject.")]
         [Display(Name = "Subject:")]

@@ -1,0 +1,72 @@
+﻿@model List<FIT5032_Project.Models.BookingModel>
+
+@{
+    ViewBag.Title = "Book";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Select a Time for @ViewBag.date.ToString("dd MMM yyyy")</h2>
+
+@using (Html.BeginForm("Book", "Booking", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    <br />
+    <input type="hidden" name="DoctorId" value="@ViewBag.DoctorId" />
+    <input type="hidden" name="DoctorName" value="@ViewBag.userName" />
+    <input type="hidden" name="BookingDate" value="@ViewBag.date" />
+
+    <table class="table">
+        <tr>
+            <th>Time</th>
+            <th>Availability</th>
+        </tr>
+        @for (var currentTime = TimeSpan.FromHours(9); currentTime < TimeSpan.FromHours(18); currentTime = currentTime.Add(TimeSpan.FromHours(1)))
+        {
+            <tr>
+                @if (!IsAvailable(currentTime))
+                {
+                    <td>
+                        <label>
+                            @*@Html.RadioButton("BookingTime", currentTime, IsAvailable(currentTime), new { @class = "radio-button" })*@
+                            <span style="color: red;">x</span> @currentTime.ToString(@"hh\:mm")
+                        </label>
+                    </td>
+                    <td>
+                        <span style="color: red;">Time Unavailable</span>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <label>
+                            @Html.RadioButton("BookingTime", currentTime, IsAvailable(currentTime), new { @class = "radio-button" })
+                            @currentTime.ToString(@"hh\:mm")
+                        </label>
+                    </td>
+                    <td>
+
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+    <br />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-babi">Book Now</button>
+    </div>
+}
+<br />
+
+<div>
+    @Html.ActionLink("Back to Calendar", "Index")
+</div>
+
+@functions {
+    bool IsAvailable(TimeSpan time)
+    {
+        // Check if the given time is in the list of taken bookings
+        return !Model.Any(booking => booking.BookingTime == time);
+    }
+}
