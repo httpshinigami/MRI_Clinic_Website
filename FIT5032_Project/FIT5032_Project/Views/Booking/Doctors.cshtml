@@ -34,7 +34,7 @@
                     @if (User.IsInRole("Patient"))
                     {
                         <td>
-                            @Html.ActionLink("Book an Appointment", "Calendar", "Booking", new { doctorId = doctor.DoctorId }, new { @class = "btn btn-babi" })
+                            @Html.ActionLink("Make Appointment", "Calendar", "Booking", new { doctorId = doctor.DoctorId }, new { @class = "btn btn-babi" })
 
                         </td>
                     }

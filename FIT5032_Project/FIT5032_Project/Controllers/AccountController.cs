@@ -159,7 +159,8 @@ namespace FIT5032_Project.Controllers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    DateOfBirth = model.DateOfBirth
+                    DateOfBirth = model.DateOfBirth,
+                    PhoneNumber = model.PhoneNumber.ToString()
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);

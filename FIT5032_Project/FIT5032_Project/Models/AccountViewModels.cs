@@ -68,16 +68,22 @@ namespace FIT5032_Project.Models
     {
         [Required]
         [Display(Name = "First Name")]
+        [Sanitise]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]
+        [Sanitise]
         public string LastName { get; set; }
 
         [Required]
         [Display(Name = "Date of Birth")]
         [MinimumAge(13)] // Apply the custom MinimumAgeAttribute with a minimum age of 13 years
         public DateTime DateOfBirth { get; set; }
+
+        [Display(Name = "Mobile Number")]
+        [RegularExpression(@"\d{10}", ErrorMessage = "Mobile number must be 10 digits.")]
+        public string PhoneNumber { get; set; }
 
         [Required]
         [EmailAddress]

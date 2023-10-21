@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using FIT5032_Project.CustomAttributes;
 using FIT5032_Project.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace FIT5032_Project.Controllers
 {
@@ -25,6 +26,93 @@ namespace FIT5032_Project.Controllers
             //return View(db.Articles.ToList());
             string currentUserId = User.Identity.GetUserId();
             return View(db.Bookings.Where(m => m.Author == currentUserId).ToList());
+        }
+        public ActionResult Chart()
+        {
+
+            DateTime today = DateTime.Today;
+            DayOfWeek currentDayOfWeek = today.DayOfWeek;
+            int daysUntilStartOfWeek = (int)DayOfWeek.Monday - (int)currentDayOfWeek;
+            int daysUntilEndOfWeek = 6 - (int)currentDayOfWeek;
+
+            DateTime startDate = today.AddDays(daysUntilStartOfWeek);
+            DateTime endDate = today.AddDays(daysUntilEndOfWeek).AddHours(23).AddMinutes(59).AddSeconds(59);
+
+            List<BookingModel> weekBookings = db.Bookings.Where(b => b.BookingDate >= startDate && b.BookingDate <= endDate).ToList();
+
+            var groupedBookings = weekBookings.GroupBy(b => b.BookingDate.Date)
+                .Select(group => new
+                {
+                    Date = group.Key.ToShortDateString(),
+                    Count = group.Count()
+                })
+                .ToList();
+
+            List<BookingInfo> weekBookings2 = groupedBookings
+                .Select(group => new BookingInfo
+                {
+                    Date = group.Date,
+                    Count = group.Count
+                })
+                .ToList();
+
+            ViewBag.weekBookingsJSON = JsonConvert.SerializeObject(weekBookings2);
+
+            // For the current month
+            DateTime startOfMonth = new DateTime(today.Year, today.Month, 1);
+            DateTime endOfMonth = startOfMonth.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59);
+
+            List<BookingModel> monthBookings = db.Bookings
+                .Where(b => b.BookingDate >= startOfMonth && b.BookingDate <= endOfMonth)
+                .ToList();
+
+            var groupedMonthBookings = monthBookings
+                .GroupBy(b => b.BookingDate.Date)
+                .Select(group => new
+                {
+                    Date = group.Key.ToShortDateString(),
+                    Count = group.Count()
+                })
+                .ToList();
+
+            List<BookingInfo> monthBookings2 = groupedMonthBookings
+                .Select(group => new BookingInfo
+                {
+                    Date = group.Date,
+                    Count = group.Count
+                })
+                .ToList();
+
+            ViewBag.monthBookingsJSON = JsonConvert.SerializeObject(monthBookings2);
+
+            // For the current year
+            DateTime startOfYear = new DateTime(today.Year, 1, 1);
+            DateTime endOfYear = new DateTime(today.Year, 12, 31).AddHours(23).AddMinutes(59).AddSeconds(59);
+
+            List<BookingModel> yearBookings = db.Bookings
+                .Where(b => b.BookingDate >= startOfYear && b.BookingDate <= endOfYear)
+                .ToList();
+
+            var groupedYearBookings = yearBookings
+                .GroupBy(b => b.BookingDate.Date)
+                .Select(group => new
+                {
+                    Date = group.Key.ToShortDateString(),
+                    Count = group.Count()
+                })
+                .ToList();
+
+            List<BookingInfo> yearBookings2 = groupedYearBookings
+                .Select(group => new BookingInfo
+                {
+                    Date = group.Date,
+                    Count = group.Count
+                })
+                .ToList();
+
+            ViewBag.yearBookingsJSON = JsonConvert.SerializeObject(yearBookings2);
+
+            return View(weekBookings);
         }
 
         // GET: Booking/Feedback/5
@@ -315,10 +403,10 @@ namespace FIT5032_Project.Controllers
                         BookingDate = Model.BookingDate,
                         BookingTime = Model.BookingTime,
                         Author = User.Identity.GetUserId()
-                    };              
+                    };
 
-                db.Bookings.Add(booking);
-                db.SaveChanges();
+                    db.Bookings.Add(booking);
+                    db.SaveChanges();
                 }
                 return RedirectToAction("Index");
             }

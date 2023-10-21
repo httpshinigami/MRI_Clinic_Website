@@ -3,6 +3,7 @@ using FIT5032_Project.Models;
 using FIT5032_Project.Utils;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.BuilderProperties;
+using Ganss.Xss;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,6 +12,8 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Security.Policy;
+using System.Web.Optimization;
 
 namespace FIT5032_Project.Controllers
 {
@@ -65,7 +68,6 @@ namespace FIT5032_Project.Controllers
         [ValidateInput(false)]
         public async Task<ActionResult> Send_Email(SendEmailViewModel model, HttpPostedFileBase Attachment)
         {
-            System.Diagnostics.Debug.WriteLine("2 ToEmail: " + string.Join(", ", model.ToEmail));
             if (ModelState.IsValid)
             {
                 try
@@ -73,9 +75,6 @@ namespace FIT5032_Project.Controllers
                     List<string> toEmail = model.ToEmail;
                     string subject = model.Subject;
                     string contents = model.Contents;
-
-                    System.Diagnostics.Debug.WriteLine("1 ToEmail: " + string.Join(", ", toEmail));
-
 
                     byte[] fileBytes = null;
                     string fileName = null;

@@ -11,7 +11,7 @@ using FIT5032_Project.Models;
 
 namespace FIT5032_Project.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [SecurityHeader]
     public class LocationsController : Controller
     {
