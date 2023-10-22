@@ -29,7 +29,6 @@
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Location", "Index", "Locations", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Make Appointment", "Doctors", "Booking", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Chart", "Chart", "Booking", new { area = "" }, new { @class = "nav-link" })</li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Bookings", "Index", "Booking", new { area = "" }, new { @class = "nav-link" })</li>
@@ -37,6 +36,7 @@
                     @if ((User.IsInRole("Admin")) || (User.IsInRole("Staff")) || (User.IsInRole("Doctor")))
                     {
                         <li>@Html.ActionLink("Email", "Send_Email", "SendEmail", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Analytics", "Chart", "Booking", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

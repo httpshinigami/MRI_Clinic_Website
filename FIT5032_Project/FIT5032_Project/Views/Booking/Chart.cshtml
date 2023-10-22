@@ -9,118 +9,14 @@
 </head>
 <body>
 
-    @*<table class="table">
-            <tr>
-                <th>Date</th>
-                <th>Count</th>
-            </tr>
-            @foreach (var datapoint in ViewBag.weekBookings2)
-            {
-                <tr>
-                    <td>@datapoint.Date</td>
-                    <td>@datapoint.Count</td>
-                </tr>
-            }
-        </table>*@
-    <!--
     <div>
-        <canvas id="weekBookings"></canvas>
-        <canvas id="monthBookings"></canvas>
-        <canvas id="yearBookings"></canvas>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-        <script>
-        console.log('viebag json', @Html.Raw(ViewBag.weekBookingsJSON))
-        const weekBookings = document.getElementById('weekBookings');
-        const monthBookings = document.getElementById('monthBookings');
-        const yearBookings = document.getElementById('yearBookings');
-
-        var weekBookingsJSON = @Html.Raw(ViewBag.weekBookingsJSON);
-        var monthBookingsJSON = @Html.Raw(ViewBag.monthBookingsJSON);
-        var yearBookingsJSON = @Html.Raw(ViewBag.yearBookingsJSON);
-
-        var weekDates = weekBookingsJSON.map(item => item.Date);
-
-        var weekCounts = weekBookingsJSON.map(item => item.Count);
-        var monthCounts = monthBookingsJSON.map(item => item.Count);
-        var yearCounts = yearBookingsJSON.map(item => item.Count);
-
-        const labels = weekDates;
-        const weekData = {
-            labels: labels,
-            datasets: [{
-                label: 'Week Bookings',
-                data: weekCounts,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        };
-        const monthData = {
-            labels: labels,
-            datasets: [{
-                label: 'Month Bookings',
-                data: monthCounts,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        };
-        const yearData = {
-            labels: labels,
-            datasets: [{
-                label: 'Year Bookings',
-                data: yearCounts,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        };
-
-        new Chart(weekBookings, {
-            type: 'line',
-            data: weekData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-        new Chart(monthBookings, {
-            type: 'line',
-            data: monthData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-        new Chart(yearBookings, {
-            type: 'line',
-            data: yearData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });-->
-    @*</script>*@
-
-    <div>
-        <h2>Choose display of booking counts</h2>
+        <h2>Trend Analysis of Bookings</h2>
         <button id="weekButton" class="btn btn-babi">Week</button>
         <button id="monthButton" class="btn btn-babi">Month</button>
         <button id="yearButton" class="btn btn-babi">Year</button>
-        <canvas id="bookingChart"></canvas>
     </div>
+    <br />
+    <canvas id="bookingChart"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
@@ -144,7 +40,7 @@
         var currentData = {
             labels: weekDates,  // Dates
             datasets: [{
-                label: 'Bookings',
+                /*label: 'Bookings',*/
                 data: weekCounts,  // Counts
                 fill: false,
                 borderColor: 'pink',
@@ -156,6 +52,11 @@
             type: 'line',
             data: currentData,
             options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
                 scales: {
                     y: {
                         beginAtZero: true

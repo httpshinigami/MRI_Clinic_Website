@@ -20,13 +20,15 @@ namespace FIT5032_Project.Controllers
         private DatabaseContext db = new DatabaseContext();
 
         // GET: Booking
-
         public ActionResult Index()
         {
             //return View(db.Articles.ToList());
             string currentUserId = User.Identity.GetUserId();
             return View(db.Bookings.Where(m => m.Author == currentUserId).ToList());
         }
+
+        // Get: Chart
+        [Authorize(Roles = "Admin,Staff,Doctor")]
         public ActionResult Chart()
         {
 
@@ -41,6 +43,7 @@ namespace FIT5032_Project.Controllers
             List<BookingModel> weekBookings = db.Bookings.Where(b => b.BookingDate >= startDate && b.BookingDate <= endDate).ToList();
 
             var groupedBookings = weekBookings.GroupBy(b => b.BookingDate.Date)
+                .OrderBy(group => group.Key) // Sort by date in ascending order
                 .Select(group => new
                 {
                     Date = group.Key.ToShortDateString(),
@@ -68,6 +71,7 @@ namespace FIT5032_Project.Controllers
 
             var groupedMonthBookings = monthBookings
                 .GroupBy(b => b.BookingDate.Date)
+                .OrderBy(group => group.Key) // Sort by date in ascending order
                 .Select(group => new
                 {
                     Date = group.Key.ToShortDateString(),
@@ -95,6 +99,7 @@ namespace FIT5032_Project.Controllers
 
             var groupedYearBookings = yearBookings
                 .GroupBy(b => b.BookingDate.Date)
+                .OrderBy(group => group.Key) // Sort by date in ascending order
                 .Select(group => new
                 {
                     Date = group.Key.ToShortDateString(),
