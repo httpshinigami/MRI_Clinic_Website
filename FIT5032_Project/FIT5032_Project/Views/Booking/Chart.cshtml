@@ -21,8 +21,10 @@
 
 
     <script>
+        // Initialise chart
         const canvas = document.getElementById('bookingChart');
         const ctx = canvas.getContext('2d');
+
         var weekBookingsJSON = @Html.Raw(ViewBag.weekBookingsJSON);
         var monthBookingsJSON = @Html.Raw(ViewBag.monthBookingsJSON);
         var yearBookingsJSON = @Html.Raw(ViewBag.yearBookingsJSON);

@@ -69,11 +69,13 @@ namespace FIT5032_Project.Models
         [Required]
         [Display(Name = "First Name")]
         [Sanitise]
+        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "First name must be alphabetic letters only.")]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]
         [Sanitise]
+        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Last name must be alphabetic letters only.")]
         public string LastName { get; set; }
 
         [Required]

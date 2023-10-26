@@ -139,3 +139,11 @@ C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\System.Memory.x
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\System.Numerics.Vectors.xml
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\System.Text.Encoding.CodePages.xml
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\Rotativa.dll
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\EPPlus.dll
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\EPPlus.Interfaces.dll
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\EPPlus.System.Drawing.dll
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\Microsoft.IO.RecyclableMemoryStream.dll
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\System.ComponentModel.Annotations.dll
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\EPPlus.xml
+C:\FIT5032-Portfolio-Project\FIT5032_Project\FIT5032_Project\bin\Microsoft.IO.RecyclableMemoryStream.xml

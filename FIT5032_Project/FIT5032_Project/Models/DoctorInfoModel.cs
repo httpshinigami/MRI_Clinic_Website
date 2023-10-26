@@ -13,7 +13,7 @@ namespace FIT5032_Project.Models
 
         public string Name { get; set; }
 
-        public string Rating { get; set; }
+        public double Rating { get; set; }
 
         public string Path { get; set; }
 

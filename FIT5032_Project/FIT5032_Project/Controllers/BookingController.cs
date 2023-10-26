@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Razor.Generator;
 using FIT5032_Project.CustomAttributes;
 using FIT5032_Project.Models;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
+using Rotativa;
+using System.Xml.Linq;
 
 namespace FIT5032_Project.Controllers
 {
@@ -26,6 +32,94 @@ namespace FIT5032_Project.Controllers
             string currentUserId = User.Identity.GetUserId();
             return View(db.Bookings.Where(m => m.Author == currentUserId).ToList());
         }
+        public string GetPatientName()
+        {
+            string connectionStringName = "DefaultConnection";
+            string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
+            string currentUserId = User.Identity.GetUserId();
+            string name = "";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT FirstName FROM AspNetUsers WHERE Id = @UserId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", currentUserId);
+
+                    // Use ExecuteScalar to retrieve a single value
+                    name = command.ExecuteScalar() as string;
+                }
+            }
+
+            return name;
+        }
+
+
+        //Generate PDF and download it
+        public ActionResult GeneratePDF()
+        {
+            var model = getBookings();
+            return new Rotativa.ViewAsPdf("Index", model)
+            {
+                FileName = "YourBookings.pdf"
+            };
+        }
+        public IEnumerable<FIT5032_Project.Models.BookingModel> getBookings()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            return db.Bookings.Where(m => m.Author == currentUserId).ToList();
+        }
+
+        public ActionResult ExportToExcel()
+        {
+            // Get the data you want to export
+            var data = getBookings();
+
+            // Set the license context for the ExcelPackage
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            string patientName = GetPatientName();
+            // Create a new Excel package
+            using (var package = new ExcelPackage())
+            {
+                // Add a worksheet to the package
+                var worksheet = package.Workbook.Worksheets.Add(patientName);
+
+                worksheet.Cells[1, 1].Value = "Doctor Name";
+                worksheet.Cells[1, 2].Value = "Date";
+                worksheet.Cells[1, 3].Value = "Time";
+                // Fill the worksheet with data
+                for (int i = 2; i <= data.Count(); i++)
+                {
+                    worksheet.Cells[i, 1].Value = data.ElementAt(i - 1).DoctorName;
+                    worksheet.Cells[i, 2].Value = data.ElementAt(i - 1).BookingDate.ToString("MM/dd/yyyy");
+                    worksheet.Cells[i, 3].Value = data.ElementAt(i - 1).BookingTime.ToString();
+                    // Add more columns as needed
+                }
+
+                // Set the style of the header row (optional)
+                worksheet.Cells["A1:C1"].Style.Font.Bold = true;
+                worksheet.Cells["A1:C1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                worksheet.Cells["A1:C1"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+
+                // Auto-fit columns (optional)
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                // Save the Excel package to a MemoryStream
+                using (var memoryStream = new MemoryStream())
+                {
+                    package.SaveAs(memoryStream);
+
+                    // Return the Excel file as a downloadable response
+                    return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "YourBookings.xlsx");
+                }
+            }
+        }
+
+
+
 
         // Get: Chart
         [Authorize(Roles = "Admin,Staff,Doctor")]
@@ -59,6 +153,7 @@ namespace FIT5032_Project.Controllers
                 })
                 .ToList();
 
+            // Chart.js requires a JSON object (to make it, we need to SerializeObject)
             ViewBag.weekBookingsJSON = JsonConvert.SerializeObject(weekBookings2);
 
             // For the current month
@@ -459,9 +554,6 @@ namespace FIT5032_Project.Controllers
         [AllowAnonymous]
         public ActionResult Doctors()
         {
-            ViewBag.Message = "Your application description page.";
-            //return View(db.Articles.ToList());
-            //return View(db.ImageModels.Where(m => m.Author == currentUserId).ToList());
 
             List<DoctorInfoModel> doctorNames = GetDoctorInfo();
             ViewBag.DoctorInfo = doctorNames;
@@ -495,7 +587,7 @@ namespace FIT5032_Project.Controllers
                             {
                                 DoctorId = reader["DoctorId"].ToString(),
                                 Name = reader["DoctorName"].ToString(),
-                                Rating = reader["AggRating"].ToString()
+                                Rating = Convert.ToDouble(reader["AggRating"])
                             });
 
                         }

@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<FIT5032_Project.Models.BookingModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Bookings";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.jqueryui.min.css" rel="stylesheet" />
+
+@*<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />*@
+
 <h2>Bookings</h2>
-<br/>
-<table class="table">
+<br />
+<table class="table table-babi table-bordered ">
     <thead>
         <tr>
             <th>
@@ -51,8 +56,9 @@
                 else
                 {
                     <td>
-                        @Html.ActionLink("Feedback", "Feedback", new { id = item.Id })
+                        @Html.ActionLink("Feedback", "Feedback", new { id = item.Id }, new { @class = "btn btn-babi" })
                     </td>
+
                 }
             </tr>
         }
@@ -61,15 +67,20 @@
 
 </table>
 
+<br />
+<a class="btn btn-babi" href="Booking/GeneratePDF"><i class="fa fa-download" aria-hidden="true"></i> Download as PDF</a>
+<a class="btn btn-babi" href="Booking/ExportToExcel"><i class="fa fa-download" aria-hidden="true"></i> Download as Excel Spreadsheet </a>
+
 @section Scripts {
 
-    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
-    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/datatablestyle")
+
+    @* @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+        @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")*@
     <script>
         $(document).ready(function () {
             $('.table').DataTable();
         });
     </script>
 }
-<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
-      rel="stylesheet" />

@@ -22,6 +22,15 @@ namespace FIT5032_Project
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                        "~/Scripts/DataTables/jquery.dataTables.js",
+                        "~/Scripts/DataTables/jquery.dataTables.min.js",
+                        "~/Scripts/DataTables/dataTables.bootstrap.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/datatablestyle").Include(
+                      "~/Scripts/DataTables/css/dataTables.bootstrap4.css",
+                      "~/Scripts/DataTables/css/jquery.dataTables.min.css"));
+
             // Add location.js to the bundle called mapbox.
             bundles.Add(new ScriptBundle("~/bundles/mapbox").Include(
             "~/Scripts/location.js"));
