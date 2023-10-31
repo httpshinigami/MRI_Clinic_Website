@@ -32,21 +32,7 @@
             <img class="img-thumbnail" src="@Url.Content("~/Uploads/" + @doctor.Path)" />
         </td>*@
                     <td>@doctor.Name</td>
-                    @*<td>@doctor.Rating / 5</td>*@
-
-                    <td>
-                        <div class="col-md-10">
-                            <div class="stars" title="@doctor.Rating / 5">
-                                @for (int i = 5; i >= 1; i--)
-                                {
-                                    <input class="star star-@i" id="star-@i" type="radio" name="Rating-@doctor.Name" value="@i" @(doctor.Rating <= i ? "checked" : "") />
-                                    <label class="star star-@i" for="star-@i"></label>
-                                }
-                            </div>
-                        </div>
-                    </td>
-
-
+                    <td>@doctor.Rating / 5</td>
 
                     @if (User.IsInRole("Patient"))
                     {

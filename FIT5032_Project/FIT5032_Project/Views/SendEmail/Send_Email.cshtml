@@ -63,10 +63,11 @@
             </div>
         </div>
 
+        <br />
         <div class="form-group">
             @Html.Label("Attachment", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="Attachment" /> <!-- Ensure the input name matches your parameter name -->
+                <input type="file" name="Attachment" /> 
             </div>
         </div>
 
@@ -74,12 +75,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Send" class="btn btn-primary" />
+                <input type="submit" value="Send" class="btn btn-babi" />
             </div>
         </div>
     </div>
 
-    <!-- Display upload result message if available -->
     if (ViewBag.UploadResult != null)
     {
         <div class="alert alert-info">@ViewBag.UploadResult</div>
