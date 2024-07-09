@@ -1,0 +1,79 @@
+﻿@model FIT5032_Project.Models.BookingModel
+
+@{
+    ViewBag.Title = "Create";
+
+    if (ViewBag.DoctorNames == null)
+    {
+        ViewBag.DoctorNames = new List<string>();
+    }
+
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create a Booking</h2>
+
+@using (Html.BeginForm("Create", "Booking", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <p>Author Name: @ViewBag.Author</p>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DoctorId, "Select a Doctor:", new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.DoctorId, (SelectList)ViewBag.DoctorList, "Select a Doctor", new { @class = "form-control", id = "Dropdown" })
+        @Html.HiddenFor(model => model.DoctorName, new { id = "DoctorName" })
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BookingDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.BookingDate, new { @class = "form-control", @type = "date" })
+            @Html.ValidationMessageFor(model => model.BookingDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BookingTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.BookingTime, new { @class = "form-control", @type = "time" })
+            @Html.ValidationMessageFor(model => model.BookingTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create Booking" class="btn btn-primary" />
+        </div>
+    </div>
+
+    <br />
+    <br />
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+            $(document).ready(function () {
+                $('#Dropdown').change(function () {
+                    var selectedId = $(this).val();
+                    var selectedName = $('#Dropdown option:selected').text();
+                    $('#DoctorName').val(selectedName);
+                });
+            });
+        </script>
+
+}

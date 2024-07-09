@@ -1,0 +1,81 @@
+﻿@model List<FIT5032_Project.Models.BookingModel>
+
+@{
+    ViewBag.Title = "Calendar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.css" />
+
+<h2>Calendar</h2>
+@ViewBag.DoctorId
+<div id="calendar"></div>
+<div style="display: none">
+    <table class="table">
+        <tr>
+            <th>
+                Booking
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr class="events">
+                <td class="title">
+                    @Html.DisplayFor(modelItem => item.BookingTime)
+                </td>
+                <td class="start">
+                    @Html.DisplayFor(modelItem => item.BookingDate)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<style>
+    body {
+        background-color: rgb(50,50,50);
+    }
+</style>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://fullcalendar.io/js/fullcalendar-2.2.5/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var param = urlParams.get('doctorId')
+
+            var events = [];
+            $(".events").each(function () {
+                var title = $(".title", this).text().trim();
+                var start = $(".start", this).text().trim();
+                var event = {
+                    "title": title,
+                    "start": start
+                };
+                events.push(event);
+            });
+            $("#calendar").fullCalendar({
+                locale: 'au',
+                events: events,
+                validRange: {
+                    start: new Date(), // Start from today
+                },
+                dayClick: function (date, allDay, jsEvent, view) {
+                    var d = new Date(date);
+                    var today = new Date();
+                    if (date < today) {
+                        // Clicked date is in the past, show a message
+                        alert("You cannot select past dates.");
+                    }
+                    else {
+                        var m = moment(d).format("YYYY-MM-DD");
+                        m = encodeURIComponent(m);
+                        var uri = "/Booking/Book?date=" + m + "&DoctorId=" + param;
+                        $(location).attr('href', uri);
+                    }
+                }
+            });
+        });
+    </script>
+}

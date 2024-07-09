@@ -1,0 +1,86 @@
+﻿@model IEnumerable<FIT5032_Project.Models.BookingModel>
+
+@{
+    ViewBag.Title = "Bookings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.jqueryui.min.css" rel="stylesheet" />
+
+@*<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />*@
+
+<h2>Bookings</h2>
+<br />
+<table class="table table-babi table-bordered ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingTime)
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingTime)
+                </td>
+                @if ((User.IsInRole("Admin")) || (User.IsInRole("Staff")) || (User.IsInRole("Doctor")))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        <span> </span>
+                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        <span> </span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Feedback", "Feedback", new { id = item.Id }, new { @class = "btn btn-babi" })
+                    </td>
+
+                }
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+<br />
+<a class="btn btn-babi" href="Booking/GeneratePDF"><i class="fa fa-download" aria-hidden="true"></i> Download as PDF</a>
+<a class="btn btn-babi" href="Booking/ExportToExcel"><i class="fa fa-download" aria-hidden="true"></i> Download as Excel Spreadsheet </a>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/datatablestyle")
+
+    @* @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+        @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")*@
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main class="space">
+    <div class="row">
+        <section class="col-8" aria-labelledby="banner">
+            <img src="https://i.imgur.com/tNwnKmh.png" style="max-width: 100%; height: auto;" />
+        </section>
+
+        <section class="col front-content" aria-labelledby="librariesTitle">
+            <div>
+                <h2 id="librariesTitle">Quality & Care</h2>
+                <p>At our clinic, we are honored to have a dedicated team of highly qualified doctors with extensive experience. Their commitment to excellence and continuous learning ensures that our patients receive the highest standard of care.</p>
+                </br>
+                @Html.ActionLink("See Our Doctors", "Doctors", "Booking", new { area = "" }, new { @class="btn btn-babi" })
+            </div>
+        </section>
+    </div>
+</main>
